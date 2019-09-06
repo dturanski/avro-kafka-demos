@@ -17,7 +17,7 @@ public class AvroDemoSinkApplication {
     }
 
     @StreamListener(Sink.INPUT)
-    public void process(byte[] bytes) {
-        System.out.println(bytes);
+    public void process(User user) {
+        System.out.println(user);
     }
 }
