@@ -8,12 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
-import org.springframework.cloud.stream.schema.avro.AvroSchemaMessageConverter;
-import org.springframework.cloud.stream.schema.avro.AvroSchemaServiceManagerImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHeaders;
-import org.springframework.messaging.converter.MessageConverter;
 import org.springframework.messaging.support.MessageBuilder;
 import reactor.core.publisher.Flux;
 
@@ -26,17 +22,10 @@ public class AvroDemoSourceApplication {
     }
 
 
-    @Bean
-    public MessageConverter avroMessageConverter() {
-        return new AvroSchemaMessageConverter(new AvroSchemaServiceManagerImpl());
-    }
-
-
    @Bean
    public Supplier<Flux<Message<User>>> users(){
         return ()-> Flux.interval(Duration.ofSeconds(1))
-                .map(i-> MessageBuilder.withPayload(RandomUsers.user())
-                        .setHeader(MessageHeaders.CONTENT_TYPE, "application/avro").build())
+                .map(i-> MessageBuilder.withPayload(RandomUsers.user()).build())
                 .log();
    }
 
