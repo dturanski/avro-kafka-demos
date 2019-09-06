@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    stream:
+      function.definition: users
+      bindings:
+        output:
+          destination: users-topic
+          producer:
+            useNativeEncoding: true
+      kafka:
+        bindings:
+          output:
+            producer:
+              configuration:
+                value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                schema.registry.url: http://localhost:8081
+server.port: 0
+
