@@ -15,4 +15,6 @@ spring:
                 value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
                 schema.registry.url: http://localhost:8081
 server.port: 0
-
+logging:
+  level:
+    org.springframework.integration: DEBUG
